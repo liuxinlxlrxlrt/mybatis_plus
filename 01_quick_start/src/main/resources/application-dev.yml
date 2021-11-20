@@ -1,0 +1,36 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver #com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://localhost:3306/mybatisplus?useUnicode=true&characterEncodeing=utf8&serverTimezone=UTC&useSSL=false
+    url: jdbc:p6spy:mysql://localhost:3306/mybatisplus?useUnicode=true&characterEncodeing=utf8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: lx@lx19870613
+    schema: classpath:sql/schema.sql
+    data: classpath:sql/data.sql
+    #传创建表前"always"，创建表后修改为"never"
+    initialization-mode: never
+    type: com.alibaba.druid.pool.DruidDataSource
+
+logging:
+  level:
+    root: info
+    com.mbp: debug
+
+mybatis-plus:
+  configuration:
+    #禁止开启列名 A_COLUMN（下划线命名） 到经典 Java 属性名 aColumn（驼峰命名） 的类似映射
+    #使用@TableField 注解指定数据库字段名
+    #@TableField 注解指定数据库字段名
+    map-underscore-to-camel-case: true
+  #mp默认mapper.xml的地址是classpath:/mapper/**/*.xml,如果不需要通过以下地址
+  mapper-locations: classpath:/mapper/*.xml
+
+  global-config:
+    db-config:
+      #全局id生成策略
+      id-type: auto
+      #逻辑删除全局设置
+      logic-delete-field: enabled  #逻辑删除字段
+      logic-delete-value: 0  #已删除数据
+      logic-not-delete-value: 1 #有效数据
